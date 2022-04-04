@@ -1,15 +1,16 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <TabManager/>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TabManager from './components/TabManager.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    TabManager
   }
 }
 </script>

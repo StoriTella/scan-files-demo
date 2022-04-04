@@ -9,6 +9,9 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "tesseract-vue": "^0.1.5",
+    "tesseract.js": "^2.0.0-beta.2",
+    "tesseract.js-core": "^1.0.2",
     "vue": "^3.2.13"
   },
   "devDependencies": {
