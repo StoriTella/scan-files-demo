@@ -14,14 +14,7 @@
 <script>
 
 import Tesseract from 'tesseract.js';
-
-/*
-const { createWorker } = Tesseract;
-const worker = createWorker({
-    corePath: '/node_modules/tesseract.js-core/tesseract-core.wasm.js',
-    logger: m => console.log(m),
-});
-*/
+import { jsPDF } from "jspdf";
 
 export default {
     name: 'LoadFile',
@@ -33,16 +26,12 @@ export default {
     },
     methods: {
         loadFile: function(event) {
+            this.eventObj = event.target.files[0];
             this.processFile(event).then((text) => {
                 console.log(text);
                 this.currentText = text;
                 this.dlBtnDis = false;
             });
-        },
-        downloadPdf: function() {
-            this.downloadPDF(this.currentText).then(() => {
-                console.log("teste");
-            })
         },
         processFile: async (event) => {
             console.log(event);
@@ -62,25 +51,11 @@ export default {
             });
             return output;
         },
-        downloadPDF: async (currentText) => {
-            const filename = 'tesseract-ocr-result.pdf';
-            const data = currentText;
-            //const { data } = await worker.getPDF('Tesseract OCR Result');
-            const blob = new Blob([new Uint8Array(data)], { type: 'application/pdf' });
-            if (navigator.msSaveBlob) {
-                navigator.msSaveBlob(blob, filename);
-            } else {
-                const link = document.createElement('a');
-                if (link.download !== undefined) {
-                    const url = URL.createObjectURL(blob);
-                    link.setAttribute('href', url);
-                    link.setAttribute('download', filename);
-                    link.style.visibility = 'hidden';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                }
-            }
+        downloadPdf() {
+            const doc = new jsPDF();
+
+            doc.text(this.currentText, 10, 10);
+            doc.save("test.pdf");
         }
     }
 }
